@@ -1,23 +1,57 @@
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Navegate from './componets/navegate';
+import Tdoform from './componets/Tdoform';
+import {todos} from './todos.json'
+
+
 
 function App() {
+
+
+  const [ users,setdatos] = useState(todos);
+
+  const addUser = (user) => {
+    console.log(user)
+    setdatos([
+      ...users,
+      user
+    ])
+  }
+  const deleteUser = id => {
+    console.log(id)
+    setdatos(users.filter(user => user.title !== id))
+  }
+  
+
   return (
+    
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+<nav className="navbar navbar-dark bg-dark">
+          <a href="" className="text-white">
+            tasks 
+            <span className= "badge badge-pill badge bg-light ml-2"
+            >
+              <h6 className="text-black" >{todos.length}</h6>
+            </span>
+          </a>
+        </nav>
+       
+        <div className ="container">
+         <div className ="row mt-4">
+         <Tdoform addUser={addUser} />
+         <Navegate users={users} deleteUser={deleteUser} />
+         </div> 
+        </div> 
+      
+         
+      
+
+
+   <img src={logo} className="App-logo" alt="logo" />
+     
     </div>
   );
 }
